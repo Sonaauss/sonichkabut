@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Тортики & Тістечка</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    /* ---- Фільтри ---- */
+    .filters {
+      flex: 0 0 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .filters h3 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .filters label {
+      display: block;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      background: #f0f0f0;
+      text-align: center;
+    }
+
+    input[type=radio] {
+      display: none;
+    }
+
+    input[type=radio]:checked + label {
+      background: #cce5ff;
+      border-color: #3399ff;
+    }
+
+    /* ---- Галерея ---- */
+    .grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      align-self: flex-start;
+    }
+
+    .card h4 {
+      margin: 10px;
+      font-size: 1rem;
+      color: #003366;
+    }
+
+    .card p {
+      margin: auto 10px 10px 10px; /* "auto" піднімає лінію однаково */
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ---- Фільтр по типу ---- */
+    #pie:checked ~ .grid .card:not(.pie),
+    #roll:checked ~ .grid .card:not(.roll),
+    #cake:checked ~ .grid .card:not(.cake),
+    #cookie:checked ~ .grid .card:not(.cookie),
+    #cheese:checked ~ .grid .card:not(.cheese) {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      background: #f0f0f0;
+    }
+	 /* ---- Планшет ---- */
+    @media (min-width: 730px) and (max-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card img {
+        height: 200px;
+      }
+
+      .filters {
+        flex: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .filters label {
+        padding: 6px 12px;
+        margin: 0;
+      }
+    }
+
+    /* ---- Телефон ---- */
+    @media (max-width: 730px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .filters {
+        order: -1;
+        flex: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card img {
+        height: 220px;
+      }
+
+    /* ---- Адаптив ---- */
+    @media (max-width: 1200px) and (min-width: 730px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 730px) {
+      .container {
+        flex-direction: column;
+      }
+      .filters {
+        order: -1; /* фільтри над картками */
+        flex: none;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Тортики <span style="color:#cc0033">&amp;</span> Тістечка</h1>
+  </header>
+
+  <div class="container">
+    
+    <input type="radio" id="pie" name="filter">
+    <input type="radio" id="roll" name="filter">
+    <input type="radio" id="cake" name="filter">
+    <input type="radio" id="cookie" name="filter">
+    <input type="radio" id="cheese" name="filter">
+    <input type="radio" id="reset" name="filter" checked>
+
+    <!-- Фільтри -->
+    <aside class="filters">
+      <h3>Калорії у порції</h3>
+      <input type="range" min="0" max="600">
+
+      <h3>Тип виробу</h3>
+      <label for="pie">Пиріг</label>
+      <label for="roll">Рулет</label>
+      <label for="cake">Торт</label>
+      <label for="cookie">Тістечко</label>
+      <label for="cheese">Сирники</label>
+      <label for="reset">Скинути фільтр</label>
+    </aside>
+
+    <!-- Галерея -->
+    <main class="grid">
+      <div class="card cake">
+        <img src="https://rud.ua/uploads/under_recipe/01.jpg" alt="">
+        <h4>Торт: Сметанковий</h4>
+        <p>Калорії у порції 265 кКал</p>
+      </div>
+
+      <div class="card cookie">
+        <img src="https://vova.ua/wp-content/uploads/2023/03/00-00002408-mafin-s-shokoladno-limonnym-vkusom-v-individualnoj-upakovke-tm-shantil-90g-32sht.jpg" alt="">
+        <h4>Тістечко: Маффін</h4>
+        <p>Калорії у порції 305 кКал</p>
+      </div>
+
+      <div class="card cheese">
+        <img src="https://images.unian.net/photos/2021_02/thumb_files/1200_0_1613373803-2196.jpg" alt="">
+        <h4>Сирники: Три ягоди</h4>
+        <p>Калорії у порції 450 кКал</p>
+      </div>
+
+      <div class="card cake">
+        <img src="https://images.gastronom.ru/LpY9S_C2RRupI6toWHqCJpsADkxmsD2k9jtvjDsg6oU/pr:recipe-cover-image/g:ce/rs:auto:0:0:0/L2Ntcy9hbGwtaW1hZ2VzL2U3MzJlZTRjLThmZTMtNDdlOS04YjEyLTg4MDAyMjQ0MmJjMi5qcGc.webp" alt="">
+        <h4>Торт: Смачний</h4>
+        <p>Калорії у порції 523 кКал</p>
+      </div>
+
+      <div class="card roll">
+        <img src="https://madamevorger.com/wp-content/uploads/2023/05/IMG_4088-e1683559645689.jpg" alt="">
+        <h4>Рулет: Святковий</h4>
+        <p>Калорії у порції 380 кКал</p>
+      </div>
+
+      <div class="card pie">
+        <img src="https://shuba.life/static/content/thumbs/1824x912/d/75/dpqytr---c2x1x50px50p-up--c319e2140fd9be2a5e7006ef527a675d.png" alt="">
+        <h4>Пиріг: Свято у бабусі</h4>
+        <p>Калорії у порції 298 кКал</p>
+      </div>
+
+      <div class="card cake">
+        <img src="https://picantecooking.com/pictures/2018-11/tort-vedmedik-6404da0c58147851030354.jpg" alt="">
+        <h4>Торт: Ведмедик</h4>
+        <p>Калорії у порції 600 кКал</p>
+      </div>
+
+      <div class="card cookie">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPbFcGvE5gpT266b8eZm_Ke6C4qAfR9wAmGg&s" alt="">
+        <h4>Тістечко: Живі квіти</h4>
+        <p>Калорії у порції 438 кКал</p>
+      </div>
+
+      <div class="card cookie">
+        <img src="https://cdn.metro-online.com/-/media/Project/MCW/UA_Metro/shutterstock_566366023_2.jpg?rev=e70b30dc44fb47ddbb250d5458d1c7d0" alt="">
+        <h4>Тістечко: Лимонне з маком</h4>
+        <p>Калорії у порції 348 кКал</p>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p>Контакти: <a href="sonichkabut@gmail.com">sonichkabut@gmail.com</a></p>
+    <p>© 2025 Smakota</p>
+  </footer>
+</body>
+</html>
